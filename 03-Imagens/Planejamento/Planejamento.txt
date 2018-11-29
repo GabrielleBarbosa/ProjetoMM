@@ -1,0 +1,18 @@
+Materiais:
+
+bluetooth  hc05
+motor de passo
+servo motor
+sensor de linha/objeto (cor)
+sensor de proximidade
+
+
+parte visual:
+
+chapa de papelão multiuso 1000x2000mm
+caninho
+
+
+vídeo de inspiração:
+
+https://www.youtube.com/watch?v=_siU2XmSDrc
