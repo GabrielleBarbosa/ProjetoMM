@@ -23,7 +23,7 @@ void setup ()
  //20 -> verde
 void loop()
 {
-  switch(cor)
+  /*switch(cor)
   {
     case MARROM:
     
@@ -37,28 +37,30 @@ void loop()
       delay(1000);
       break;
 
-    case LARANJA;
+    case LARANJA:
 
       s.write(110);
       delay(1000);
       break;
 
-    case AMARELO;
+    case AMARELO:
 
       s.write(80);
       delay(1000);
       break;
 
-    case VERMELHO;
+    case VERMELHO:
 
       s.write(50);
       delay(1000);
       break;
 
-    case VERDE;
+    case VERDE:
 
       s.write(20);
       delay(1000);
       break;
   }
+  */
+  s.write(90);
 }

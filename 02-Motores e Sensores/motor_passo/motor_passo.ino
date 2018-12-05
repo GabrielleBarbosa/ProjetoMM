@@ -15,11 +15,10 @@ void setup()
 void loop() 
 { 
  //Gira o motor no sentido horario a 90 graus
- for (int i = 0; i<=3; i++)
- {
+ 
  myStepper.step(-512); 
  delay(200);
- }
+ 
   
  
  delay(200); 

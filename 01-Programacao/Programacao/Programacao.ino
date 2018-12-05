@@ -60,17 +60,19 @@ void setup()
   // SERVO MOTOR 
   s.attach(SERVO);
   Serial.begin(9600);
-  s.write(0); // Inicia motor posição zero
+  s.write(90); // Inicia motor posição zero
 } 
   
 void loop() 
-{ 
-    //motorDePasso();
+{  
+   motorDePasso();
     for(;;)
     {
-      sensorCor();
-      if(qtdPreto > 3)
-         break;
+       {
+        sensorCor();
+        //servoMotor();
+       // motorDePasso();
+       }
     }
 }
 void sensorCor()
@@ -128,43 +130,40 @@ void sensorCor()
 Serial.println(red);
 Serial.println(green);
 Serial.println(blue);
-delay(2000);
 
-  
-  if(red>=160&&red<=200&&green>=90&&green<=130&&blue>=150&&blue<=180)
+    if(red>153&&red<=165&&green>=108&&green<=118&&blue>=160&&blue<=175)
     {
-    cor = AMARELO;
-    Serial.println("AMARELO");
-    }
-    else if(red>=100&&red<=160&&green>=30&&green<=55&&blue>=75&&blue<=75)
-    {
-    cor =  VERMELHO;
-        Serial.println("VERMELHO");
-    }
-    else if(red>=100&&red<=160&&green>=40&&green<=110&&blue>=110&&blue<=130)
-    {
-    cor = VERDE;
-        Serial.println("VERDE");
-    }
-    else if(red>=165&&red<=205&&green>=100&&green<=150&&blue>=140&&blue<=185)
-    {
-    cor = LARANJA;
+        cor = LARANJA;  
         Serial.println("LARANJA");
-    }
-    else if(red>=160&&red<=200&&green>=135&&green<=158&&blue>=150&&blue<=190)
+    } 
+    else if(red>=147&&red<=154&&green>=110&&green<=120&&blue>=157&&blue<=164)
     {
-    cor = AZUL;
-        Serial.println("AZUL");
-    }
-
-    else if(red>=115&&red<=185&&green>=80&&green<=130&&blue>=138&&blue<=170)
-    {
-    cor = MARROM;  
+        cor = MARROM;
         Serial.println("MARROM");
     }
-
-
-
+    else if(red>=166&&red<=175 &&green>=131&&green<=138 &&blue>=163&&blue<=172)
+    {
+        cor = AMARELO;
+        Serial.println("AMARELO");
+    }
+    else if(red>=148&&red<=154&&green>=120 &&green<=125&&blue>=158&&blue<=165)
+    {
+        cor = VERDE;
+        Serial.println("VERDE");
+    }
+    else if(red>=145&&red<=151&&green>=116&&green<=125&&blue>=168&&blue<=175)
+    {
+        cor =  AZUL;
+        Serial.println("AZUL");
+    }
+    else if(red>=148&&red<=155&&green>=100&&green<=113&&blue>=152&&blue<=162)
+    {
+        cor = VERMELHO;
+        Serial.println("VERMELHO");
+    }
+    
+    
+    
 
   //Mostra valores no serial monitor
   delay(1000);
@@ -177,37 +176,37 @@ void servoMotor()
   {
     case MARROM:   //totalmente direita
     
-      s.write(140);
+      s.write(30);
       delay(1000);
       break;
     
     case AZUL:////
     
-      s.write(110); //um pouco pra direita
+      s.write(60); //um pouco pra direita
       delay(1000);
       break;
 
     case LARANJA:  //no meio
 
-      s.write(90);
+      s.write(80);
       delay(1000);
       break;
 
     case AMARELO: //um pouco pra esquerda
 
-      s.write(70);
+      s.write(100);
       delay(1000);
       break;
 
     case VERDE:  //mais pra esquerda
 
-      s.write(60);
+      s.write(120);
       delay(1000);
       break;
 
     case VERMELHO:   //esquerda máxima
 
-      s.write(40);
+      s.write(140);
       delay(1000);
       break;
   }  
