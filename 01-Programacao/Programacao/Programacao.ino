@@ -7,10 +7,12 @@ const int s3 = 52;//const int s3 = 11;
 const int out = 48;//const int out = 10;
 
  
-//Variaveis cores
+//Variaveis cores retornadas
 int red = 0;
 int green = 0;
 int blue = 0;
+
+//quantidades de cada M&M
 int qtdPreto = 0;
 int qtdAzul = 0;
 int qtdMarrom = 0;
@@ -33,10 +35,9 @@ Stepper myStepper(stepsPerRevolution, 8,10,9,11);
  
 #define SERVO 6 // Porta Digital 6 PWM
 
-enum Color { VERMELHO, MARROM, AZUL, AMARELO,  LARANJA, VERDE , PRETO};
+enum Color { VERMELHO, MARROM, AZUL, AMARELO,  LARANJA, VERDE , PRETO}; //cores possiveis (PRETO é quando não identifica nenhuma)
  
 Servo s; // Variável Servo
-int pos; // Posição Servo
 
 Color cor = MARROM; //com sensor
 int frequency = 0; //frequencia das cores
@@ -47,7 +48,7 @@ void setup()
  //MOTOR DE PASSO
  myStepper.setSpeed(60);
  
- //  SENSOR DE COR
+ //SENSOR DE COR
   pinMode(s0, OUTPUT);
   pinMode(s1, OUTPUT);
   pinMode(s2, OUTPUT);
@@ -65,7 +66,7 @@ void setup()
   
 void loop() 
 {  
-   motorDePasso();
+   //motorDePasso();
     for(;;)
     {
        {
@@ -75,6 +76,8 @@ void loop()
        }
     }
 }
+
+//para ler cor com sensor
 void sensorCor()
 {
   for(int i=0; i<50; i++)
@@ -131,7 +134,7 @@ Serial.println(red);
 Serial.println(green);
 Serial.println(blue);
 
-    if(red>153&&red<=165&&green>=108&&green<=118&&blue>=160&&blue<=175)
+    if(red>205&&red<=217&&green>=170&&green<=180&&blue>=209&&blue<=220)
     {
         cor = LARANJA;  
         Serial.println("LARANJA");
@@ -141,17 +144,17 @@ Serial.println(blue);
         cor = MARROM;
         Serial.println("MARROM");
     }
-    else if(red>=166&&red<=175 &&green>=131&&green<=138 &&blue>=163&&blue<=172)
+    else if(red>=214&&red<=221 &&green>=186&&green<=195 &&blue>=212&&blue<=220)
     {
         cor = AMARELO;
         Serial.println("AMARELO");
     }
-    else if(red>=148&&red<=154&&green>=120 &&green<=125&&blue>=158&&blue<=165)
+    else if(red>=215&&red<=225&&green>=186 &&green<=195&&blue>=218&&blue<=225)
     {
         cor = VERDE;
         Serial.println("VERDE");
     }
-    else if(red>=145&&red<=151&&green>=116&&green<=125&&blue>=168&&blue<=175)
+    else if(red>=196&&red<=205&&green>=176&&green<=186&&blue>=218&&blue<=225)
     {
         cor =  AZUL;
         Serial.println("AZUL");
