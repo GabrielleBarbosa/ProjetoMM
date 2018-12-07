@@ -66,19 +66,106 @@ void setup()
   
 void loop() 
 {  
-   //motorDePasso();
     for(;;)
     {
        {
+        motorDePasso();
         sensorCor();
-        //servoMotor();
-       // motorDePasso();
+        servoMotor();
+        motorDePasso();
        }
     }
 }
 
 //para ler cor com sensor
 void sensorCor()
+{
+int verd = 0;
+int verm = 0;
+int lar = 0;
+int mar = 0;
+int amar = 0;
+int azu = 0;
+ while(azu<4 && amar<4 && verm<4 && verd<4 && lar<4 && mar<4)
+ {
+    valoresCor();
+    if(red>170&&red<=183&&green>=120&&green<=138&&blue>=170&&blue<=182)
+    {
+        cor = LARANJA;  
+        lar++;
+    }
+    else if(red>=150&&red<=165&&green>=122 &&green<=132&&blue>=160&&blue<=175)
+    {
+        cor = VERDE;
+        verd++;
+    }
+    else if(red>=155&&red<=165&&green>=110&&green<=120&&blue>=160&&blue<=170)
+    {
+        cor = VERMELHO;
+        verm++;
+    }
+    else if(red>=145&&red<=160&&green>=120&&green<=135&&blue>=168&&blue<=180)
+    {
+        cor =  AZUL;
+        azu++;
+    }
+    
+    else if(red>=160&&red<=70&&green>=128&&green<=140&&blue>=178&&blue<=190)
+    {
+        cor = MARROM;
+        mar++;
+    }
+    else if(red>=160&&red<=172 &&green>=128&&green<=140 &&blue>=160&&blue<=170)
+    {
+        cor = AMARELO;
+        amar++;
+    }
+    delay(200);
+ }
+
+ if(amar>=4)
+ {
+    cor = AMARELO;
+    qtdAmarelo++;
+    Serial.println("AMARELO");
+ }
+ else if(mar>=4)
+ {
+    cor = MARROM;  
+    qtdMarrom++;
+    Serial.println("MARROM");
+ }
+ else if(azu>=4)
+ {
+    cor = AZUL; 
+    qtdAzul++; 
+    Serial.println("AZUL");
+ }
+ else if(verm>=4)
+ {
+    cor = VERMELHO;  
+    qtdVermelho++;
+    Serial.println("VERMELHO");
+ }
+ else if(verd>=4)
+ {
+    cor = VERDE;  
+    qtdVerde++;
+    Serial.println("VERDE");
+ }
+ else if(lar>=4)
+ {
+    cor = LARANJA;
+    qtdLaranja++;  
+    Serial.println("LARANJA");
+ }
+
+  //Mostra valores no serial monitor
+  delay(1000);
+ }
+
+
+void valoresCor()
 {
   for(int i=0; i<50; i++)
   {
@@ -133,45 +220,8 @@ void sensorCor()
 Serial.println(red);
 Serial.println(green);
 Serial.println(blue);
-
-    if(red>205&&red<=217&&green>=170&&green<=180&&blue>=209&&blue<=220)
-    {
-        cor = LARANJA;  
-        Serial.println("LARANJA");
-    } 
-    else if(red>=147&&red<=154&&green>=110&&green<=120&&blue>=157&&blue<=164)
-    {
-        cor = MARROM;
-        Serial.println("MARROM");
-    }
-    else if(red>=214&&red<=221 &&green>=186&&green<=195 &&blue>=212&&blue<=220)
-    {
-        cor = AMARELO;
-        Serial.println("AMARELO");
-    }
-    else if(red>=215&&red<=225&&green>=186 &&green<=195&&blue>=218&&blue<=225)
-    {
-        cor = VERDE;
-        Serial.println("VERDE");
-    }
-    else if(red>=196&&red<=205&&green>=176&&green<=186&&blue>=218&&blue<=225)
-    {
-        cor =  AZUL;
-        Serial.println("AZUL");
-    }
-    else if(red>=148&&red<=155&&green>=100&&green<=113&&blue>=152&&blue<=162)
-    {
-        cor = VERMELHO;
-        Serial.println("VERMELHO");
-    }
-    
-    
-    
-
-  //Mostra valores no serial monitor
-  delay(1000);
- 
 }
+
 
 void servoMotor()
 { 
