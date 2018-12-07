@@ -24,6 +24,11 @@ int qtdLaranja = 0;
 
 //MOTOR DE PASSO
 #include <Stepper.h> 
+
+//BLUETOOTH
+#include <SoftwareSerial.h>
+
+SoftwareSerial bluetooth(10,11); //TX - RX
  
 const int stepsPerRevolution = 500; 
   
@@ -64,7 +69,7 @@ void setup()
   s.write(90); // Inicia motor posição zero
 } 
   
-void loop() 
+void loop() //apenas chama os métodos infinitamente
 {  
     for(;;)
     {
@@ -86,36 +91,36 @@ int lar = 0;
 int mar = 0;
 int amar = 0;
 int azu = 0;
- while(azu<4 && amar<4 && verm<4 && verd<4 && lar<4 && mar<4)
+ while(azu<4 && amar<4 && verm<4 && verd<4 && lar<4 && mar<4) //verifica mais de uma vez(4), por conta instabilidade do sensor
  {
-    valoresCor();
-    if(red>174&&red<=185&&green>=126&&green<=135&&blue>=175&&blue<=182)
+    valoresCor(); //lê as cores e pega os sinais do sensor
+    if(red>174&&red<=185&&green>=126&&green<=135&&blue>=175&&blue<=182) //valores para a cor laranja
     {
         cor = LARANJA;  
         lar++;
     }
-    else if(red>=162&&red<=170&&green>=135 &&green<=145&&blue>=173&&blue<=182)
+    else if(red>=162&&red<=170&&green>=135 &&green<=145&&blue>=173&&blue<=182) //valores para a cor verde
     {
         cor = VERDE;
         verd++;
     }
-    else if(red>=163&&red<=170&&green>=121&&green<=129&&blue>=170&&blue<=180)
+    else if(red>=163&&red<=170&&green>=121&&green<=129&&blue>=170&&blue<=180) //valores para a cor vermelho
     {
         cor = VERMELHO;
         verm++;
     }
-    else if(red>=158&&red<=167&&green>=135&&green<=145&&blue>=188&&blue<=198)
+    else if(red>=158&&red<=167&&green>=135&&green<=145&&blue>=188&&blue<=198) //valores para a cor azul
     {
         cor =  AZUL;
         azu++;
     }
     
-    else if(red>=158&&red<=166&&green>=120&&green<=130&&blue>=172&&blue<=181)
+    else if(red>=158&&red<=166&&green>=120&&green<=130&&blue>=172&&blue<=181) //valores para a cor marrom
     {
         cor = MARROM;
         mar++;
     }
-    else if(red>=180&&red<=193 &&green>=150&&green<=159 &&blue>=180&&blue<=190)
+    else if(red>=180&&red<=193 &&green>=150&&green<=159 &&blue>=180&&blue<=190) //valores para a cor amarelo
     {
         cor = AMARELO;
         amar++;
@@ -128,36 +133,48 @@ int azu = 0;
     cor = AMARELO;
     qtdAmarelo++;
     Serial.println("AMARELO");
+    bluetooth.print("Amarelo"); //manda o nome da cor pelo bluetooth
+    bluetooth.print("|");  //divisor usado no app para facilitar a leitura
  }
  else if(mar>=4)
  {
     cor = MARROM;  
     qtdMarrom++;
     Serial.println("MARROM");
+    bluetooth.print("Marrom");
+    bluetooth.print("|");
  }
  else if(azu>=4)
  {
     cor = AZUL; 
     qtdAzul++; 
     Serial.println("AZUL");
+    bluetooth.print("Azul");
+    bluetooth.print("|");
  }
  else if(verm>=4)
  {
     cor = VERMELHO;  
     qtdVermelho++;
     Serial.println("VERMELHO");
+    bluetooth.print("Vermelho");
+    bluetooth.print("|");
  }
  else if(verd>=4)
  {
     cor = VERDE;  
     qtdVerde++;
     Serial.println("VERDE");
+    bluetooth.print("Verde");
+    bluetooth.print("|");
  }
  else if(lar>=4)
  {
     cor = LARANJA;
     qtdLaranja++;  
     Serial.println("LARANJA");
+    bluetooth.print("Laranja");
+    bluetooth.print("|");
  }
 
   //Mostra valores no serial monitor
@@ -227,7 +244,7 @@ void servoMotor()
 { 
   switch(cor)
   {
-    case MARROM:   //totalmente direita
+    case MARROM:   //totalmente direita(30º)
     
       s.write(30);
       delay(1000);
@@ -235,29 +252,29 @@ void servoMotor()
     
     case AZUL:////
     
-      s.write(60); //um pouco pra direita
+      s.write(60); //um pouco pra direita(60º)
       delay(1000);
       break;
 
-    case LARANJA:  //no meio
+    case LARANJA:  //no meio (80º)
 
       s.write(80);
       delay(1000);
       break;
 
-    case AMARELO: //um pouco pra esquerda
+    case AMARELO: //um pouco pra esquerda (100º)
 
       s.write(100);
       delay(1000);
       break;
 
-    case VERDE:  //mais pra esquerda
+    case VERDE:  //mais pra esquerda (120º)
 
       s.write(120);
       delay(1000);
       break;
 
-    case VERMELHO:   //esquerda máxima
+    case VERMELHO:   //esquerda máxima (140º)
 
       s.write(140);
       delay(1000);
@@ -268,6 +285,7 @@ void servoMotor()
 void motorDePasso()
 {
    //Gira o motor no sentido horario a 90 graus
+   //para movimento dos mms
 
  myStepper.step(-512); 
  
