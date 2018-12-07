@@ -28,7 +28,7 @@ int qtdLaranja = 0;
 //BLUETOOTH
 #include <SoftwareSerial.h>
 
-SoftwareSerial bluetooth(10,11); //TX - RX
+SoftwareSerial bluetooth(13,12); //TX - RX
  
 const int stepsPerRevolution = 500; 
   
