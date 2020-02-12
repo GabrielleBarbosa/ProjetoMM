@@ -1,2 +1,2 @@
 # ProjetoMM
-só os brabos
+Separador de M&Ms por cor
